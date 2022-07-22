@@ -4,14 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.github.alirzaev.movies.data.models.Movie
 import io.github.alirzaev.movies.databinding.ActivityMainBinding
+import io.github.alirzaev.movies.features.moviedetails.MovieDetailsFragment
+import io.github.alirzaev.movies.features.movies.MoviesListFragment
 
-class MainActivity : AppCompatActivity(), FragmentMoviesList.OnMovieClickListener {
+class MainActivity : AppCompatActivity(), MoviesListFragment.OnMovieClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val moviesListFragment = FragmentMoviesList().apply {
-        setListener(this@MainActivity)
-    }
+    private val moviesListFragment = MoviesListFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), FragmentMoviesList.OnMovieClickListene
 
     override fun onClick(movie: Movie) {
         supportFragmentManager.beginTransaction().apply {
-            add(R.id.fragment_container, FragmentMoviesDetails())
+            add(R.id.fragment_container, MovieDetailsFragment.newInstance(movie))
             addToBackStack(null)
             commit()
         }

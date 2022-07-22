@@ -9,27 +9,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/movie_card"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/space_2x"
         android:background="@drawable/movie_card_background">
 
         <ImageView
             android:id="@+id/movie_card_poster"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="166dp"
+            android:layout_height="248dp"
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
+            android:background="@drawable/movie_card_poster_mask"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sample_card_poster_avenger_end_game" />
+            app:srcCompat="@drawable/sample_movie_card_poster" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/movie_card_poster_background"
+            android:background="@drawable/movie_card_poster_mask"
             app:layout_constraintBottom_toBottomOf="@+id/movie_card_poster"
             app:layout_constraintEnd_toEndOf="@+id/movie_card_poster"
             app:layout_constraintStart_toStartOf="@id/movie_card_poster"
@@ -46,28 +47,27 @@
                 app:srcCompat="@drawable/ic_like" />
 
             <TextView
-                android:id="@+id/movie_card_age_restriction"
+                android:id="@+id/age_restriction"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="@dimen/space_2x"
                 android:layout_marginTop="@dimen/space_2x"
                 android:background="@drawable/movie_card_age_restriction_background"
                 android:gravity="center"
-                android:text="@string/sample_age_restriction"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="13+" />
 
             <TextView
-                android:id="@+id/movie_card_tags_list"
+                android:id="@+id/movie_card_genres"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_2x"
                 android:layout_marginEnd="@dimen/space_2x"
                 android:layout_marginBottom="@dimen/space_1x"
-                android:text="@string/sample_tags_list"
                 android:textColor="@color/accent"
                 android:textSize="8sp"
                 app:layout_constraintBottom_toTopOf="@+id/movie_card_reviews"
@@ -147,7 +147,7 @@
                 tools:text="125 reviews" />
 
             <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/ratings_bottom_barrier"
+                android:id="@+id/rating_bottom_barrier"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="bottom"
@@ -156,28 +156,27 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/movie_card_movie_name"
+            android:id="@+id/movie_card_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_2x"
             android:layout_marginTop="@dimen/space_2x"
             android:layout_marginEnd="@dimen/space_2x"
-            android:text="@string/sample_movie_name"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_card_poster" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_card_poster"
+            tools:text="Avengers: End Game" />
 
         <TextView
-            android:id="@+id/movie_card_movie_duration"
+            android:id="@+id/movie_card_runtime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_2x"
             android:layout_marginEnd="@dimen/space_2x"
             android:layout_marginBottom="@dimen/space_2x"
-            android:text="@string/sample_movie_duration"
             android:textAllCaps="true"
             android:textColor="@color/secondary"
             android:textSize="8sp"
@@ -185,6 +184,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_card_movie_name" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_card_name"
+            tools:text="137 min" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

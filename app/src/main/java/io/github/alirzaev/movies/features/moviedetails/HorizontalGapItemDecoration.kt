@@ -1,10 +1,11 @@
-package io.github.alirzaev.movies
+package io.github.alirzaev.movies.features.moviedetails
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class SpacingItemDecoration(private val margin: Int): RecyclerView.ItemDecoration() {
+class HorizontalGapItemDecoration(private val margin: Int) : RecyclerView.ItemDecoration() {
+
     override fun getItemOffsets(
         outRect: Rect,
         view: View,

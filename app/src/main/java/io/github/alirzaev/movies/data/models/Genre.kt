@@ -2,10 +2,8 @@ package io.github.alirzaev.movies.data.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Parcelize
-data class Actor(
-    val id: Int,
-    val name: String,
-    val image: String
-) : Parcelable
+data class Genre(val id: Int, val name: String) : Parcelable

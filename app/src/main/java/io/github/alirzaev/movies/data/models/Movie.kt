@@ -1,13 +1,19 @@
 package io.github.alirzaev.movies.data.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Movie(
-    val name: String,
-    val rating: Double,
-    val ageRestriction: Int,
-    val poster: Int,
-    val tags: List<String>,
-    val reviews: List<String>,
-    val runningTime: Int,
-    val actors: List<Actor>,
-    val liked: Boolean
-)
+    val id: Int,
+    val title: String,
+    val overview: String,
+    val poster: String,
+    val backdrop: String,
+    val rating: Float,
+    val voteCount: Int,
+    val adult: Boolean,
+    val runtime: Int,
+    val genres: List<Genre>,
+    val actors: List<Actor>
+) : Parcelable
