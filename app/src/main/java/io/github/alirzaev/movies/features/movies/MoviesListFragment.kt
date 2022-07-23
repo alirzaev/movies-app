@@ -6,22 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import io.github.alirzaev.movies.data.source.MoviesRepository
 import io.github.alirzaev.movies.data.models.Movie
 import io.github.alirzaev.movies.databinding.FragmentMoviesListBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MoviesListFragment : Fragment() {
 
     private var _binding: FragmentMoviesListBinding? = null
 
     private val binding get() = _binding!!
+
+    private val viewModel: MoviesListViewModel by activityViewModels()
 
     private var onMovieClickListener: OnMovieClickListener? = null
 
@@ -54,7 +54,12 @@ class MoviesListFragment : Fragment() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loadMovies()
+                viewModel.loadMovies(requireContext())
+                viewModel.movies.observe(viewLifecycleOwner) {
+                    (binding.moviesList.adapter as MoviesListAdapter).apply {
+                        bindMovies(it)
+                    }
+                }
             }
         }
     }
@@ -69,14 +74,6 @@ class MoviesListFragment : Fragment() {
         super.onDestroy()
 
         _binding = null
-    }
-
-    private suspend fun loadMovies() = withContext(Dispatchers.Main) {
-        val movies = MoviesRepository.getMovies(requireContext())
-
-        (binding.moviesList.adapter as MoviesListAdapter).apply {
-            bindMovies(movies)
-        }
     }
 
     interface OnMovieClickListener {
