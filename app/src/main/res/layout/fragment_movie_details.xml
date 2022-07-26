@@ -23,7 +23,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sample_movie_details_backdrop" />
+                tools:srcCompat="@drawable/image_placeholder" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/movie_backdrop_mask"
@@ -163,6 +163,22 @@
                 tools:layout_editor_absoluteY="402dp" />
 
             <TextView
+                android:id="@+id/movie_runtime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_4x"
+                android:layout_marginTop="@dimen/space_2x"
+                android:layout_marginEnd="@dimen/space_4x"
+                android:textAllCaps="true"
+                android:textColor="@color/secondary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rating_bottom_barrier"
+                tools:text="137 min" />
+
+            <TextView
                 android:id="@+id/storyline_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -174,7 +190,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rating_bottom_barrier" />
+                app:layout_constraintTop_toBottomOf="@id/movie_runtime" />
 
             <TextView
                 android:id="@+id/storyline"

@@ -24,8 +24,7 @@
             android:background="@drawable/movie_card_poster_mask"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sample_movie_card_poster" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -162,29 +161,14 @@
             android:layout_marginStart="@dimen/space_2x"
             android:layout_marginTop="@dimen/space_2x"
             android:layout_marginEnd="@dimen/space_2x"
+            android:layout_marginBottom="@dimen/space_2x"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_card_poster"
-            tools:text="Avengers: End Game" />
-
-        <TextView
-            android:id="@+id/movie_card_runtime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_2x"
-            android:layout_marginEnd="@dimen/space_2x"
-            android:layout_marginBottom="@dimen/space_2x"
-            android:textAllCaps="true"
-            android:textColor="@color/secondary"
-            android:textSize="8sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_card_name"
-            tools:text="137 min" />
+            tools:text="Avengers: End Game" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

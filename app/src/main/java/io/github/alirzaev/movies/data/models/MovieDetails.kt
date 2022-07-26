@@ -1,6 +1,6 @@
 package io.github.alirzaev.movies.data.models
 
-data class Movie(
+data class MovieDetails(
     val id: Int,
     val title: String,
     val overview: String,
@@ -9,5 +9,7 @@ data class Movie(
     val rating: Float,
     val voteCount: Int,
     val adult: Boolean,
-    val genres: List<Genre>
+    val runtime: Int,
+    val genres: List<Genre>,
+    val actors: List<Actor>
 )

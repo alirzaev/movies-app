@@ -33,8 +33,6 @@ class ViewHolder(
 
     private val reviews: TextView = itemView.findViewById(R.id.movie_card_reviews)
 
-    private val runtime: TextView = itemView.findViewById(R.id.movie_card_runtime)
-
     private val ageRestriction: TextView =
         itemView.findViewById(R.id.age_restriction)
 
@@ -47,9 +45,8 @@ class ViewHolder(
 
         card.clipToOutline = true
         name.text = movie.title
-        genres.text = movie.genres.map { it.name }.joinToString(", ")
+        genres.text = movie.genres.joinToString(", ") { it.name }
         reviews.text = context.getString(R.string.label_movie_reviews, movie.voteCount)
-        runtime.text = context.getString(R.string.label_movie_runtime, movie.runtime)
         ageRestriction.text =
             context.getString(
                 R.string.label_movie_age_restriction,
@@ -57,6 +54,7 @@ class ViewHolder(
             )
         Glide.with(context)
             .load(movie.poster)
+            .placeholder(R.drawable.image_placeholder)
             .into(poster)
         poster.clipToOutline = true
 //            liked.setImageResource(if (movie.liked) R.drawable.ic_like_fill else R.drawable.ic_like)

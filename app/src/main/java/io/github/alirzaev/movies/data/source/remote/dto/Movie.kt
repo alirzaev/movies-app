@@ -1,4 +1,4 @@
-package io.github.alirzaev.movies.data.dto
+package io.github.alirzaev.movies.data.source.remote.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -9,17 +9,14 @@ data class Movie(
     val title: String,
     val overview: String,
     @SerialName("poster_path")
-    val poster: String,
+    val poster: String?,
     @SerialName("backdrop_path")
-    val backdrop: String,
+    val backdrop: String?,
     @SerialName("vote_count")
     val voteCount: Int,
     @SerialName("vote_average")
     val rating: Float,
     val adult: Boolean,
-    val runtime: Int,
     @SerialName("genre_ids")
-    val genreIds: List<Int>,
-    @SerialName("actors")
-    val actorIds: List<Int>
+    val genreIds: List<Int>
 )

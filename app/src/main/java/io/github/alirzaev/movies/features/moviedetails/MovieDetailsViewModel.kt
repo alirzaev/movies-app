@@ -1,31 +1,33 @@
-package io.github.alirzaev.movies.features.movies
+package io.github.alirzaev.movies.features.moviedetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.alirzaev.movies.data.models.MovieDetails
 import io.github.alirzaev.movies.data.source.MoviesRepository
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class MoviesListViewModel : ViewModel() {
+class MovieDetailsViewModel : ViewModel() {
 
-    private val _uiState = MutableLiveData(MoviesListUiState())
+    private val _uiState = MutableLiveData(MovieDetailsUiState())
 
-    val uiState: LiveData<MoviesListUiState> get() = _uiState
+    private val _movie = MutableLiveData<MovieDetails>()
 
-    init {
-        loadMovies()
-    }
+    val movie: LiveData<MovieDetails> get() = _movie
 
-    private fun loadMovies() {
+    val uiState: LiveData<MovieDetailsUiState> get() = _uiState
+
+    fun loadMovie(id: Int) {
         _uiState.value = _uiState.value?.copy(isLoading = true)
 
         viewModelScope.launch {
             try {
-                val movies = MoviesRepository.getMoviesPaginated().results
+                val movie = MoviesRepository.getMovie(id)
 
                 _uiState.value =
-                    _uiState.value?.copy(movies = movies, isLoading = false, error = null)
+                    _uiState.value?.copy(movie = movie, isLoading = false, error = null)
             } catch (ex: Exception) {
                 _uiState.value = _uiState.value?.copy(
                     isLoading = false,

@@ -2,7 +2,6 @@ package io.github.alirzaev.movies
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import io.github.alirzaev.movies.data.models.Movie
 import io.github.alirzaev.movies.databinding.ActivityMainBinding
 import io.github.alirzaev.movies.features.moviedetails.MovieDetailsFragment
 import io.github.alirzaev.movies.features.movies.MoviesListFragment
@@ -27,9 +26,9 @@ class MainActivity : AppCompatActivity(), MoviesListFragment.OnMovieClickListene
         }
     }
 
-    override fun onClick(movie: Movie) {
+    override fun onClick(id: Int) {
         supportFragmentManager.beginTransaction().apply {
-            add(R.id.fragment_container, MovieDetailsFragment.newInstance(movie))
+            add(R.id.fragment_container, MovieDetailsFragment.newInstance(id))
             addToBackStack(null)
             commit()
         }

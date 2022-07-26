@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import io.github.alirzaev.movies.data.models.Movie
 import io.github.alirzaev.movies.databinding.FragmentMoviesListBinding
 import kotlinx.coroutines.launch
 
@@ -48,16 +47,17 @@ class MoviesListFragment : Fragment() {
         with(binding) {
             moviesList.layoutManager = GridLayoutManager(context, 2)
             moviesList.adapter = MoviesListAdapter {
-                this@MoviesListFragment.onMovieClickListener?.onClick(it)
+                this@MoviesListFragment.onMovieClickListener?.onClick(it.id)
             }
         }
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loadMovies(requireContext())
-                viewModel.movies.observe(viewLifecycleOwner) {
-                    (binding.moviesList.adapter as MoviesListAdapter).apply {
-                        bindMovies(it)
+                viewModel.uiState.observe(viewLifecycleOwner) { state ->
+                    if (!state.isLoading && state.error == null) {
+                        (binding.moviesList.adapter as MoviesListAdapter).apply {
+                            bindMovies(state.movies)
+                        }
                     }
                 }
             }
@@ -77,7 +77,7 @@ class MoviesListFragment : Fragment() {
     }
 
     interface OnMovieClickListener {
-        fun onClick(movie: Movie)
+        fun onClick(id: Int)
     }
 
     companion object {

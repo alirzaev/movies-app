@@ -20,6 +20,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         name.text = actor.name
         Glide.with(itemView.context)
             .load(actor.image)
+            .placeholder(R.drawable.image_placeholder)
             .into(image)
         image.clipToOutline = true
     }
