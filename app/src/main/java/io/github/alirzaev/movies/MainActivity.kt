@@ -2,10 +2,12 @@ package io.github.alirzaev.movies
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.alirzaev.movies.databinding.ActivityMainBinding
 import io.github.alirzaev.movies.features.moviedetails.MovieDetailsFragment
 import io.github.alirzaev.movies.features.movies.MoviesListFragment
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), MoviesListFragment.OnMovieClickListener {
 
     private lateinit var binding: ActivityMainBinding

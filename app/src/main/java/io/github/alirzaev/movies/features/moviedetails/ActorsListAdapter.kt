@@ -1,5 +1,6 @@
 package io.github.alirzaev.movies.features.moviedetails
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class ActorsListAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     private var actors: List<Actor> = emptyList()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun bindActors(actors: List<Actor>) {
         this.actors = actors
         notifyDataSetChanged()

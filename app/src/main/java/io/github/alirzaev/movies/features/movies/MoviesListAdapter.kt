@@ -1,5 +1,6 @@
 package io.github.alirzaev.movies.features.movies
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,7 @@ class MoviesListAdapter(private val listener: (movie: Movie) -> Unit) :
 
     private var movies: List<Movie> = emptyList()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun bindMovies(movies: List<Movie>) {
         this.movies = movies
         notifyDataSetChanged()

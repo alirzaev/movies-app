@@ -4,12 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.alirzaev.movies.data.models.MovieDetails
 import io.github.alirzaev.movies.data.source.MoviesRepository
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import javax.inject.Inject
 
-class MovieDetailsViewModel : ViewModel() {
+@HiltViewModel
+class MovieDetailsViewModel @Inject constructor(
+    private val moviesRepository: MoviesRepository
+) : ViewModel() {
 
     private val _uiState = MutableLiveData(MovieDetailsUiState())
 
@@ -23,17 +27,29 @@ class MovieDetailsViewModel : ViewModel() {
         _uiState.value = _uiState.value?.copy(isLoading = true)
 
         viewModelScope.launch {
-            try {
-                val movie = MoviesRepository.getMovie(id)
+            moviesRepository.getCachedMovie(id)
+                .onSuccess {
+                    _uiState.value =
+                        _uiState.value?.copy(movie = it, error = null)
+                }.onFailure {
+                    _uiState.value = _uiState.value?.copy(
+                        error = it
+                    )
+                }
 
-                _uiState.value =
-                    _uiState.value?.copy(movie = movie, isLoading = false, error = null)
-            } catch (ex: Exception) {
-                _uiState.value = _uiState.value?.copy(
-                    isLoading = false,
-                    error = ex
-                )
-            }
+            moviesRepository.getMovie(id)
+                .onSuccess {
+                    _uiState.value =
+                        _uiState.value?.copy(movie = it, isLoading = false, error = null)
+
+                    moviesRepository.saveMovieDetails(it)
+                }
+                .onFailure {
+                    _uiState.value = _uiState.value?.copy(
+                        isLoading = false,
+                        error = it
+                    )
+                }
         }
     }
 }

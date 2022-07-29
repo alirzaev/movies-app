@@ -1,6 +1,7 @@
 package io.github.alirzaev.movies.features.movies
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,20 +46,28 @@ class MoviesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            moviesList.layoutManager = GridLayoutManager(context, 2)
+            val spanCount = when (resources.configuration.orientation) {
+                Configuration.ORIENTATION_LANDSCAPE -> 4
+                else -> 2
+            }
+            moviesList.layoutManager = GridLayoutManager(context, spanCount)
             moviesList.adapter = MoviesListAdapter {
                 this@MoviesListFragment.onMovieClickListener?.onClick(it.id)
+            }
+
+            refreshLayout.setOnRefreshListener {
+                viewModel.loadMovies(true)
             }
         }
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.observe(viewLifecycleOwner) { state ->
-                    if (!state.isLoading && state.error == null) {
-                        (binding.moviesList.adapter as MoviesListAdapter).apply {
-                            bindMovies(state.movies)
-                        }
+                    (binding.moviesList.adapter as MoviesListAdapter).apply {
+                        bindMovies(state.movies)
                     }
+
+                    binding.refreshLayout.isRefreshing = state.isLoading
                 }
             }
         }

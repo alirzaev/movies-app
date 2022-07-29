@@ -7,6 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TheMovieDbApi {
+
     @GET("configuration")
     suspend fun getConfiguration(): ConfigurationResponse
 
