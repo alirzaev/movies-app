@@ -28,6 +28,7 @@ class MoviesApplication : Application(), Configuration.Provider {
             .setRequiresCharging(true)
             .build()
         val work = PeriodicWorkRequestBuilder<RefreshMoviesWorker>(8, TimeUnit.HOURS)
+            .setInitialDelay(4, TimeUnit.HOURS)
             .setConstraints(constraints)
             .build()
         WorkManager

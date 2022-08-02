@@ -1,5 +1,6 @@
 package io.github.alirzaev.movies
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,10 @@ class MainActivity : AppCompatActivity(), MoviesListFragment.OnMovieClickListene
                 add(R.id.fragment_container, moviesListFragment)
                 commit()
             }
+
+            if (intent != null) {
+                handleIntent(intent)
+            }
         }
     }
 
@@ -33,6 +38,22 @@ class MainActivity : AppCompatActivity(), MoviesListFragment.OnMovieClickListene
             add(R.id.fragment_container, MovieDetailsFragment.newInstance(id))
             addToBackStack(null)
             commit()
+        }
+    }
+
+    private fun handleIntent(intent: Intent) {
+        when (intent.action) {
+            Intent.ACTION_VIEW -> intent
+                .data
+                ?.lastPathSegment
+                ?.toIntOrNull()
+                ?.let { movieId ->
+                    supportFragmentManager.beginTransaction().apply {
+                        add(R.id.fragment_container, MovieDetailsFragment.newInstance(movieId))
+                        addToBackStack(null)
+                        commit()
+                    }
+                }
         }
     }
 }

@@ -20,9 +20,21 @@ class RefreshMoviesWorker @AssistedInject constructor(
         Log.i(TAG, "Starting refresh movies job")
 
         return try {
+            val oldMovies = moviesRepository.getCachedMovies().getOrDefault(emptyList())
             val movies = moviesRepository.getMovies().getOrThrow().results
             moviesRepository.saveMovies(movies).getOrThrow()
             Log.i(TAG, "Movies refreshed successfully")
+
+            val oldMoviesSet = oldMovies.distinctBy { it.id }.toSet()
+            val newMovies = movies.filter { it !in oldMoviesSet }
+
+            if (newMovies.isNotEmpty()) {
+                newMovies.maxByOrNull { it.rating }
+            } else {
+                oldMovies.maxByOrNull { it.rating }
+            }?.let { movie ->
+                NotificationHelper.createNotificationForMovie(context, movie)
+            }
 
             Result.success()
         } catch (ex: Exception) {
